@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS roles
 (
     id      VARCHAR(255) NOT NULL,
-    role    VARCHAR(255),
+    name    VARCHAR(255),
     created DATETIME,
     updated DATETIME,
     PRIMARY KEY (id)
