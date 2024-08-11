@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS users
     email    VARCHAR(255),
     password VARCHAR(512),
     enabled  BOOLEAN,
-    created  DATETIME,
-    updated  DATETIME,
+    created  TIMESTAMP,
+    updated  TIMESTAMP,
     PRIMARY KEY (id)
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS roles
 (
     id      VARCHAR(255) NOT NULL,
     name    VARCHAR(255),
-    created DATETIME,
-    updated DATETIME,
+    created TIMESTAMP,
+    updated TIMESTAMP,
     PRIMARY KEY (id)
 );

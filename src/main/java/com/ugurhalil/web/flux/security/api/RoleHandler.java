@@ -1,4 +1,4 @@
-package com.ugurhalil.web.flux.security.web.fn;
+package com.ugurhalil.web.flux.security.api;
 
 import com.ugurhalil.web.flux.security.model.RoleDto;
 import com.ugurhalil.web.flux.security.service.RoleService;

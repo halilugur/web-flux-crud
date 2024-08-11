@@ -1,4 +1,4 @@
-package com.ugurhalil.web.flux.security.web.fn;
+package com.ugurhalil.web.flux.security.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
