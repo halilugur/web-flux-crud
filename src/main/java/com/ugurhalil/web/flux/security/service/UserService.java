@@ -9,15 +9,21 @@ import com.ugurhalil.web.flux.security.model.UserCreateRequest;
 import com.ugurhalil.web.flux.security.model.UserDto;
 import com.ugurhalil.web.flux.security.model.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsPasswordService;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements ReactiveUserDetailsService, ReactiveUserDetailsPasswordService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Flux<UserDto> getAll() {
         return userRepository.findAll().map(userEntity -> UserDto.builder()
@@ -91,6 +97,32 @@ public class UserService {
                         .email(savedUserEntity.getEmail())
                         .created(savedUserEntity.getCreated())
                         .updated(savedUserEntity.getUpdated())
+                        .build());
+    }
+
+    @Override
+    public Mono<UserDetails> findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .switchIfEmpty(Mono.error(new RuntimeException("User not found")))
+                .map(userEntity -> User.builder()
+                        .username(userEntity.getUsername())
+                        .password(userEntity.getPassword())
+                        .authorities(userEntity.getRole())
+                        .build());
+    }
+
+    @Override
+    public Mono<UserDetails> updatePassword(UserDetails user, String newPassword) {
+        return userRepository.findByUsername(user.getUsername())
+                .map(userEntity -> {
+                    userEntity.setPassword(passwordEncoder.encode(newPassword));
+                    return userEntity;
+                })
+                .flatMap(userRepository::save)
+                .map(userEntity -> User.builder()
+                        .username(userEntity.getUsername())
+                        .password(userEntity.getPassword())
+                        .authorities(userEntity.getRole())
                         .build());
     }
 }

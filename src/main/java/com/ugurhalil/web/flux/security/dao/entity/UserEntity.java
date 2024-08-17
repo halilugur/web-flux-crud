@@ -20,6 +20,8 @@ public class UserEntity extends BaseEntity {
     private String email;
     @Builder.Default
     private Boolean enabled = true;
+    @Builder.Default
+    private String role = "USER";
 }
 
 

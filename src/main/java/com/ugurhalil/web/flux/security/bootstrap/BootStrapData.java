@@ -38,6 +38,6 @@ public class BootStrapData implements CommandLineRunner {
     }
 
     private UserCreateRequest createUser(String username, String email) {
-        return new UserCreateRequest(username, email, "123");
+        return new UserCreateRequest(username, email, "$2a$10$JML4.Zgis3z.xuMsellVauSrZoyPTz49vMZLcHjrqkXmEedkP1bca");
     }
 }
