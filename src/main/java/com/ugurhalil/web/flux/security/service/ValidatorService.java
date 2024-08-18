@@ -13,7 +13,7 @@ public class ValidatorService {
     private final Validator validator;
 
     public <T> void validate(T request) {
-        Errors errors = new BeanPropertyBindingResult(request, "request");
+        Errors errors = new BeanPropertyBindingResult(request, request.getClass().getSimpleName());
         validator.validate(request, errors);
         if (errors.hasErrors()) {
             throw new ServerWebInputException(errors.toString());

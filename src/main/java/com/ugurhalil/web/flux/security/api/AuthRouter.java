@@ -12,7 +12,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @RequiredArgsConstructor
 public class AuthRouter {
     public static final String AUTH_PATH = "/v1/auth";
-    public static final String AUTH_PASSWORD_RESET_PATH = "/v1/auth/reset-password";
+    public static final String AUTH_PASSWORD_RESET_PATH = AUTH_PATH + "/reset-password";
 
     private final AuthHandler authHandler;
 

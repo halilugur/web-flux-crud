@@ -12,7 +12,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @RequiredArgsConstructor
 public class RoleRouter {
     public static final String ROLE_PATH = "/v1/roles";
-    public static final String ROLE_ID_PATH = "/v1/roles/{id}";
+    public static final String ROLE_ID_PATH = ROLE_PATH + "/{id}";
 
     private final RoleHandler roleHandler;
 

@@ -11,17 +11,17 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 @RequiredArgsConstructor
 public class UserRouter {
-    public static final String BASE_PATH_V1 = "/v1/users";
-    public static final String USER_PATH_BY_ID = BASE_PATH_V1 + "/{id}";
+    public static final String USER_PATH = "/v1/users";
+    public static final String USER_PATH_BY_ID = USER_PATH + "/{id}";
 
     private final UserHandler userHandler;
 
     @Bean
     public RouterFunction<ServerResponse> userRoutes() {
         return route()
-                .GET(BASE_PATH_V1, userHandler::getAll)
+                .GET(USER_PATH, userHandler::getAll)
                 .GET(USER_PATH_BY_ID, userHandler::getById)
-                .POST(BASE_PATH_V1, userHandler::createUser)
+                .POST(USER_PATH, userHandler::createUser)
                 .PUT(USER_PATH_BY_ID, userHandler::updateUser)
                 .build();
     }
